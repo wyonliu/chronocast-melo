@@ -1,0 +1,51 @@
+# ChronoCast - 超时空电台 依赖
+
+# 核心框架
+pyyaml>=6.0
+pydantic>=2.0
+python-dotenv>=1.0
+click>=8.0
+rich>=13.0
+loguru>=0.7
+
+# LLM API
+anthropic>=0.25
+openai>=1.0
+deepseek-sdk>=0.1
+
+# TTS / 音频处理
+requests>=2.31
+pydub>=0.25
+ffmpeg-python>=0.2
+numpy>=1.24
+
+# 视频处理
+# remotion 需要通过 npm 安装
+moviepy>=1.0
+pillow>=10.0
+
+# 数据与存储
+sqlite3  # built-in
+peewee>=3.16
+
+# 网络与API
+httpx>=0.25
+aiohttp>=3.9
+aiofiles>=23.0
+
+# 任务调度
+celery>=5.3
+redis>=5.0
+schedule>=1.2
+
+# 开发工具
+pytest>=7.0
+pytest-asyncio>=0.21
+black>=23.0
+ruff>=0.1
+mypy>=1.0
+
+# 可选：平台API SDK
+# bilibili-api-python>=16.0  # B站
+# tweepy>=4.14  # Twitter
+# wechatpy>=2.0  # 微信

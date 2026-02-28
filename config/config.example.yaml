@@ -1,0 +1,237 @@
+# ChronoCast 配置文件
+# 复制为 config.yaml 并填入你的真实密钥
+
+# ==================== 项目基础配置 ====================
+project:
+  name: "ChronoCast"
+  chinese_name: "超时空电台"
+  tagline: "麦洛与船长的超时空电台"
+  version: "1.0.0"
+  
+# ==================== 角色设定 ====================
+characters:
+  captain:
+    name: "船长"
+    english_name: "Captain"
+    age: 35
+    role: "空间智能和AI领域的创业老兵"
+    personality: "沉稳、克制、偶尔幽默，喜欢用类比解释复杂概念"
+    catchphrases:
+      - "你可以这样理解……"
+      - "本质上……"
+      - "有意思的是……"
+    voice_id: "captain_cloned"  # 克隆后的声音ID
+    
+  melo:
+    name: "麦洛"
+    english_name: "Melo"
+    age: 10
+    role: "充满好奇的小女孩"
+    personality: "好奇、活泼、偶尔蹦出超龄金句，喜欢用动漫/游戏类比"
+    catchphrases:
+      - "等等，那不就是像……"
+      - "可是为什么……"
+      - "哇，那岂不是……"
+    voice_id: "melo_child"  # 预设童声ID
+
+# ==================== API 密钥配置 ====================
+api_keys:
+  # LLM API (必选其一)
+  anthropic:
+    api_key: "YOUR_CLAUDE_API_KEY"
+    model: "claude-3-5-sonnet-20241022"
+    base_url: "https://api.anthropic.com"
+    
+  deepseek:
+    api_key: "YOUR_DEEPSEEK_API_KEY"
+    model: "deepseek-chat"
+    base_url: "https://api.deepseek.com"
+    
+  openai:
+    api_key: "YOUR_OPENAI_API_KEY"
+    model: "gpt-4o"
+    base_url: "https://api.openai.com"
+  
+  # TTS API (必选其一)
+  fish_audio:
+    api_key: "YOUR_FISH_AUDIO_API_KEY"
+    base_url: "https://api.fish.audio"
+    
+  minimax:
+    api_key: "YOUR_MINIMAX_API_KEY"
+    group_id: "YOUR_MINIMAX_GROUP_ID"
+    
+  elevenlabs:
+    api_key: "YOUR_ELEVENLABS_API_KEY"
+    
+  # 视频/图片生成 (可选)
+  runway:
+    api_key: "YOUR_RUNWAY_API_KEY"
+    
+  suno:
+    api_key: "YOUR_SUNO_API_KEY"
+
+# ==================== 内容生成配置 ====================
+content:
+  # 文稿生成
+  writer:
+    target_length: 2500  # 目标字数
+    audio_duration: 12   # 目标音频时长（分钟）
+    max_retries: 2       # 质检不通过时最大重试次数
+    temperature: 0.8
+    
+  # 配音配置
+  voice:
+    captain_speed: 0.95      # 语速倍率
+    captain_emotion: "calm"
+    melo_speed: 1.05         # 童声稍快
+    melo_emotion: "cheerful"
+    bgm_volume: 0.15         # 背景音乐音量 (0-1)
+    
+  # 视频配置
+  video:
+    resolution: "1920x1080"  # 横屏
+    fps: 30
+    bitrate: "5000k"
+    
+  # 短视频切片
+  clips:
+    count: 3                 # 每期生成3个切片
+    duration_range: [30, 60] # 每个切片30-60秒
+    resolution: "1080x1920"  # 竖屏
+    
+  # 图文卡片
+  cards:
+    count: 5                 # 每期生成5张卡片
+    size: [1080, 1080]       # 正方形
+
+# ==================== 平台发布配置 ====================
+publish:
+  # 重试策略
+  retry:
+    max_attempts: 3  # 最大重试次数
+    backoff_multiplier: 5  # 退避倍数 (1min, 5min, 25min)
+
+  # 速率限制
+  rate_limit:
+    enabled: true
+    requests_per_minute: 10
+
+  # 播客平台 (RSS分发)
+  podcast:
+    enabled: true
+    rss_url: "https://your-domain.com/rss.xml"
+    
+  # B站
+  bilibili:
+    enabled: false
+    sessdata: "YOUR_BILI_SESSDATA"
+    bili_jct: "YOUR_BILI_JCT"
+    buvid3: "YOUR_BILI_BUVID3"
+    
+  # 抖音
+  douyin:
+    enabled: false
+    # 需要 cookie 或专用API
+    
+  # 视频号
+  channels:
+    enabled: false
+    # 需使用微信服务商API
+    
+  # 小红书
+  xiaohongshu:
+    enabled: false
+    # 需使用第三方服务
+    
+  # 公众号
+  wechat:
+    enabled: false
+    app_id: "YOUR_WECHAT_APP_ID"
+    app_secret: "YOUR_WECHAT_APP_SECRET"
+    
+  # Twitter/X
+  twitter:
+    enabled: false
+    bearer_token: "YOUR_TWITTER_BEARER_TOKEN"
+    api_key: "YOUR_TWITTER_API_KEY"
+    api_secret: "YOUR_TWITTER_API_SECRET"
+
+# ==================== 数据监控配置 ====================
+analytics:
+  # 数据回收间隔（小时）
+  collect_interval: 24
+  
+  # 周报生成时间（每周几）
+  report_day: 0  # 0=周日
+  
+  # 数据存储
+  database:
+    type: "sqlite"  # sqlite / postgresql
+    path: "./data/analytics.db"
+
+# ==================== 存储配置 ====================
+storage:
+  output_base: "./output"
+  retention_days: 90  # 保留90天历史
+  
+  # 可选：对象存储备份
+  oss:
+    enabled: false
+    provider: "aliyun"  # aliyun / aws / tencent
+    access_key: ""
+    secret_key: ""
+    bucket: ""
+    endpoint: ""
+
+# ==================== 工作流配置 ====================
+workflow:
+  # 运行模式
+  # - manual: 手动触发，每步需确认
+  # - semi: 半自动，生成后等待审阅
+  # - auto: 全自动，无需人工干预
+  mode: "semi"
+
+# ==================== 调度配置 ====================
+scheduler:
+  enabled: false
+  mode: "schedule"  # "schedule" (轻量级) 或 "celery" (企业级)
+
+  # 每周一期内容生成
+  weekly_episode:
+    enabled: false
+    cron: "0 6 * * 1"  # 每周一早 06:00
+    input_file: "input/weekly_topic.txt"
+    auto_topic: false  # 是否使用AI自动生成主题
+    auto_publish: true  # 生成后是否自动发布
+    platforms: ["rss", "bilibili"]  # 自动发布的平台列表
+
+  # 每日数据收集
+  data_collection:
+    enabled: false
+    cron: "0 8 * * *"  # 每天早 08:00
+
+  # 每周报告
+  weekly_report:
+    enabled: false
+    cron: "0 9 * * 1"  # 每周一早 09:00
+
+# ==================== 通知配置 ====================
+notification:
+  enabled: false
+
+  # Webhook (通用)
+  webhook:
+    enabled: false
+    url: "https://your-webhook-url"
+
+  # 钉钉机器人
+  dingtalk:
+    enabled: false
+    webhook: "https://oapi.dingtalk.com/robot/send?access_token=xxx"
+    secret: "SECxxx"  # 签名密钥
+
+  # 飞书机器人
+  feishu:
+    enabled: false
+    webhook: "https://open.feishu.cn/open-apis/bot/v2/hook/xxx"
