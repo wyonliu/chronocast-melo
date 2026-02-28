@@ -159,9 +159,11 @@ class Config(BaseModel):
         """
         for name in ["anthropic", "deepseek", "openai"]:
             config = getattr(self.api_keys, name)
-            if config.api_key and config.api_key != f"YOUR_{name.upper()}_API_KEY":
+            api_key = config.api_key.strip() if config.api_key else ""
+            # 检查是否有有效的 API key（非空且不是占位符）
+            if api_key and not api_key.startswith("YOUR_"):
                 return name, config
-        raise ValueError("No valid LLM API key configured")
+        raise ValueError("No valid LLM API key configured. Please set one of: anthropic, deepseek, or openai in config.yaml")
     
     def get_active_tts(self) -> tuple[str, TTSConfig]:
         """获取当前激活的 TTS 配置
@@ -170,9 +172,11 @@ class Config(BaseModel):
         """
         for name in ["fish_audio", "minimax", "elevenlabs"]:
             config = getattr(self.api_keys, name)
-            if config.api_key and config.api_key != f"YOUR_{name.upper().replace('_', '_')}_API_KEY":
+            api_key = config.api_key.strip() if config.api_key else ""
+            # 检查是否有有效的 API key（非空且不是占位符）
+            if api_key and not api_key.startswith("YOUR_"):
                 return name, config
-        raise ValueError("No valid TTS API key configured")
+        raise ValueError("No valid TTS API key configured. Please set one of: fish_audio, minimax, or elevenlabs in config.yaml")
 
 
 # 全局配置实例

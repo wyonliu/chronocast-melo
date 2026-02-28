@@ -38,31 +38,31 @@ characters:
 api_keys:
   # LLM API (必选其一)
   anthropic:
-    api_key: "YOUR_CLAUDE_API_KEY"
+    api_key: ""  # 填入你的 Claude API Key，或留空以使用其他 LLM
     model: "claude-3-5-sonnet-20241022"
     base_url: "https://api.anthropic.com"
     
   deepseek:
-    api_key: "YOUR_DEEPSEEK_API_KEY"
+    api_key: ""  # 填入你的 DeepSeek API Key
     model: "deepseek-chat"
     base_url: "https://api.deepseek.com"
     
   openai:
-    api_key: "YOUR_OPENAI_API_KEY"
+    api_key: ""  # 填入你的 OpenAI API Key，或留空以使用其他 LLM
     model: "gpt-4o"
     base_url: "https://api.openai.com"
   
   # TTS API (必选其一)
   fish_audio:
-    api_key: "YOUR_FISH_AUDIO_API_KEY"
+    api_key: ""  # 填入你的 Fish Audio API Key
     base_url: "https://api.fish.audio"
     
   minimax:
-    api_key: "YOUR_MINIMAX_API_KEY"
+    api_key: ""  # 填入你的 Minimax API Key
     group_id: "YOUR_MINIMAX_GROUP_ID"
     
   elevenlabs:
-    api_key: "YOUR_ELEVENLABS_API_KEY"
+    api_key: ""  # 填入你的 ElevenLabs API Key
     
   # 视频/图片生成 (可选)
   runway:
